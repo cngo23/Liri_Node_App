@@ -1,6 +1,6 @@
 require("dotenv").config();
 var keys = require("./keys.js"); 
-var Spotify = require("spotify-web-api-node"); 
+var Spotify = require("node-spotify-api"); 
 var Twitter = require("twitter"); 
 var spotify = new Spotify(keys.spotify); 
 var client = new Twitter(keys.twitter);
@@ -14,9 +14,14 @@ if(userInput === "twitter" && user){
     recentTweets();
 }else if(userInput === "twitter" && !user){
     console.log("Please enter valid @user")
-
 }
 
+if(userInput === "spotify" && user){
+    spotifySearch();
+}else if(userInput === "spotify" && !user){
+    console.log("Please enter a valid track name within \'\' ")
+}
+// twitter
 function recentTweets(){
     var parameters = {
         screen_name: user ,
@@ -34,4 +39,20 @@ function recentTweets(){
     });
 }
 
+// spotify
+function spotifySearch(){
+    console.log("put some stuff here")
+    spotify.search({ type: "track", query: user}, function(error, data){
+        if(error) {
+            return console.log("Error occurred: " + error);
+        }
+        for(var i=0; i < data.tracks.items.length; i++){
+            var spotSearch = data.tracks.items[i].name;
+            var secSearch = data.tracks.items[i].album.external_urls.spotify;
+            console.log(spotSearch);
+            console.log(secSearch);
+        }
+        
+    });
+}
 
