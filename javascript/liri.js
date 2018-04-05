@@ -26,22 +26,28 @@ var client = new Twitter(keys.twitter);
 //     console.log("Please enter a valid track name within \'\' ")
 // }
 inquirer.prompt([{
-    type: "list",
+    type: "rawlist",
     message: "What are you looking for?",
     name: "userInput",
     choices: ["Tweets", "Songs", "Movies"]
-}]).then(function (select) {
-    if (select.userInput === "Tweets") {
-        recentTweets();
-    } else if (select.userInput === "Songs") {
-        spotifySearch();
-    } else if (select.userInput === "Movies") {
-        movieSearch();
-    }
+}]).then(function (answer) {
+    switch (answer.userInput) {
+        case ("Tweets"):
+          twitterSearch();
+          break;
+    
+        case ("Songs"):
+          spotifySearch();
+          break;
+    
+        case ("Movies"):
+          movieSearch();
+          break;
+      }
 })
 
 // twitter
-function recentTweets() {
+function twitterSearch() {
     inquirer.prompt([{
         type: "input",
         message: "Enter desired @name (handle)",
