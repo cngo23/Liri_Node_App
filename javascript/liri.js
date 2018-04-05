@@ -8,23 +8,6 @@ var request = require("request");
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
-// old logic before inquirer
-// var userInput = process.argv[2];
-// var user = process.argv[3];
-
-
-// if(userInput === "twitter" && user){
-//     console.log(user)
-//     recentTweets();
-// }else if(userInput === "twitter" && !user){
-//     console.log("Please enter valid @user")
-// }
-
-// if(userInput === "spotify" && user){
-//     spotifySearch();
-// }else if(userInput === "spotify" && !user){
-//     console.log("Please enter a valid track name within \'\' ")
-// }
 inquirer.prompt([{
     type: "rawlist",
     message: "What are you looking for?",
@@ -33,17 +16,17 @@ inquirer.prompt([{
 }]).then(function (answer) {
     switch (answer.userInput) {
         case ("Tweets"):
-          twitterSearch();
-          break;
-    
+            twitterSearch();
+            break;
+
         case ("Songs"):
-          spotifySearch();
-          break;
-    
+            spotifySearch();
+            break;
+
         case ("Movies"):
-          movieSearch();
-          break;
-      }
+            movieSearch();
+            break;
+    }
 })
 
 // twitter
